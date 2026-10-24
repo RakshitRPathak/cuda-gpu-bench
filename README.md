@@ -154,18 +154,4 @@ ptx/                   PTX generated for sm_80
   register tiling (each thread computes a 4x4 patch), vectorized `float4` loads, padding
   shared memory to avoid bank conflicts, double buffering, and Tensor Cores via WMMA.
 
-## Interview talking points
 
-* **Coalescing:** consecutive threads of a warp should touch consecutive addresses so a warp's
-  loads merge into few memory transactions. In `matmul_naive` the B loads coalesce (consecutive
-  `col`); for A, threads in the same output row read the same element, which the hardware
-  broadcasts.
-* **Why tiling works:** it converts redundant global loads into shared-memory reuse. Global
-  traffic drops by the tile edge.
-* **Why two `__syncthreads()` in the tiled loop,** and why no thread may `return` before them
-  (divergent barriers deadlock or are undefined).
-* **Warp = 32 threads executing in lockstep;** divergence inside a warp serializes both paths.
-* **Roofline thinking:** compare achieved FLOP/s and GB/s with the hardware peaks to decide
-  whether a kernel is compute-bound or memory-bound, then optimize the right resource.
-* **Atomics vs hierarchical reduction:** reduce locally first (registers, warp shuffles,
-  shared memory) and touch the global address once per block.
