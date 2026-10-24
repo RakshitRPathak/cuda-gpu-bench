@@ -54,24 +54,22 @@ If `-arch=native` is rejected (CUDA older than 11.6): `make ARCH=sm_75` (T4), `s
 
 Free GPUs for the first run: Google Colab (T4) or Kaggle notebooks.
 
-## Your results (fill in after running)
+## Results
 
-Device: ______________________  (compute capability ____, ____ SMs)
 
-| Experiment | Kernel | Size | ms | Metric | Notes |
-|---|---|---|---|---|---|
-| vec_add | vec_add | 2^25 | | GB/s | % of memcpy: |
-| matmul | naive | 2048 | | GFLOP/s | |
-| matmul | tiled | 2048 | | GFLOP/s | x faster than naive: |
-| matmul | cuBLAS | 2048 | | GFLOP/s | |
-| reduce | atomic_only | 2^25 | | GB/s | |
-| reduce | shared_tree | 2^25 | | GB/s | |
-| reduce | warp_shuffle | 2^25 | | GB/s | |
+| Experiment | Kernel | Size | ms | Metric |
+|---|---|---|---|---|
+| vec_add | vec_add | 2^25 | | GB/s |
+| matmul | naive | 2048 | | GFLOP/s |
+| matmul | tiled | 2048 | | GFLOP/s |
+| matmul | cuBLAS | 2048 | | GFLOP/s |
+| reduce | atomic_only | 2^25 | | GB/s |
+| reduce | shared_tree | 2^25 | | GB/s |
+| reduce | warp_shuffle | 2^25 | | GB/s |
 
 ## What to expect, and how to explain it
 
-These are the qualitative effects to look for. Measure them; do not quote numbers you did
-not measure.
+These are the qualitative effects to look for. 
 
 **Vector add is memory-bound.** One add per 12 bytes moved. Throughput is set by DRAM
 bandwidth, so the right yardstick is GB/s compared with `cudaMemcpy` device-to-device. A
