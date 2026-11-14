@@ -1,0 +1,25 @@
+name: emulator-tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  emulate:
+    # The kernels in src/kernels.cuh are run on the CPU through test/cuda_shim.hpp, so no GPU or nvcc is needed.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make emulate
+  sanitizers:
+    # The README says the kernels are clean under ASan/UBSan and TSan; keep it that way.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make emulate-asan
+      - run: make emulate-tsan
+  python-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m py_compile tools/ptx_summary.py tools/summarize_results.py python/profile_pytorch.py
+      - run: python3 tools/ptx_summary.py ptx/kernels_sm80.clang.ptx
