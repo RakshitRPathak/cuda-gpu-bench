@@ -1,5 +1,7 @@
 # cuda-gpu-bench
 
+[![emulator-tests](https://github.com/RakshitRPathak/cuda-gpu-bench/actions/workflows/ci.yml/badge.svg)](https://github.com/RakshitRPathak/cuda-gpu-bench/actions/workflows/ci.yml)
+
 Hand-written CUDA kernels, benchmarked and analysed the way a GPU performance engineer
 would: *where is the time going, and is this kernel limited by compute, memory, or
 synchronization?*
@@ -166,3 +168,7 @@ ptx/                   PTX generated for sm_80
   shared memory to avoid bank conflicts, double buffering, and Tensor Cores via WMMA.
 
 
+
+## License
+
+MIT. See [LICENSE](LICENSE).
