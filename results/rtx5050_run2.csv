@@ -1,0 +1,15 @@
+experiment,kernel,size,ms,metric,unit
+vec_add,vec_add,33554432,1.482157,271.6671,GB/s
+vec_add,memcpy_d2d_reference,33554432,1.013851,264.7681,GB/s
+matmul,naive,512,0.328298,817.6589,GFLOP/s
+matmul,tiled,512,0.243656,1101.6986,GFLOP/s
+matmul,cublas,512,0.051302,5232.4156,GFLOP/s
+matmul,naive,1024,2.665905,805.5363,GFLOP/s
+matmul,tiled,1024,2.071554,1036.6536,GFLOP/s
+matmul,cublas,1024,0.310501,6916.1936,GFLOP/s
+matmul,naive,2048,23.929819,717.9272,GFLOP/s
+matmul,tiled,2048,18.925955,907.7412,GFLOP/s
+matmul,cublas,2048,2.619283,6558.9964,GFLOP/s
+reduce,atomic_only,33554432,0.755520,177.6495,GB/s
+reduce,shared_tree,33554432,0.683690,196.3138,GB/s
+reduce,warp_shuffle,33554432,0.658939,203.6876,GB/s
