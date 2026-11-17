@@ -136,6 +136,10 @@ as many atomics as the other two. Those serialize at the L2, and it reaches only
 ## What changes on Blackwell (RTX 5050 vs T4)
 
 **cuBLAS is 1.25× faster at N = 1024 and 1.44× faster at N = 2048** (6.7–6.9 vs 4.7–5.5 TFLOP/s).
+A later run on the same laptop, PTXForge's tuner on 17 November with the laptop plugged in and in its performance power
+mode, measured cuBLAS SGEMM at 9.5 TFLOP/s for N = 2048, about 40% above the 6.7 here. The likeliest reason is that this
+run was in a lower power state, but that has not been checked. Treat these as numbers for one power state, and compare
+kernels within a run rather than across runs. Re-running `./bench_cublas` in performance mode would settle it.
 
 **Tiling is worth less: 1.27–1.35× instead of 1.53–1.56×.** The naive kernel gained more from the new
 GPU (+60% at N = 2048) than the tiled kernel did (+34%). A likely reason is cache: Blackwell has far more
